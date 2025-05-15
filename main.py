@@ -1,8 +1,11 @@
-from fastapi import FastAPI
+from flask import Flask
+import os
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
-def read_root():
-    return {"Welcome": "Hello World"}
+@app.route('/')
+def home():
+    return 'Hola desde Railway!'
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
