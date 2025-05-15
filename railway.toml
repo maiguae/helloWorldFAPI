@@ -1,3 +1,5 @@
-{
-  "startCommand": "hypercorn main:app"
-}
+[build]
+command = "pip install -r requirements.txt"
+
+[deploy]
+start = "hypercorn main:app --bind 0.0.0.0:8000 --reload"
