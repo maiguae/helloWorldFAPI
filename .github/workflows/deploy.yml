@@ -28,8 +28,8 @@ jobs:
         # (Este paso es opcional y útil para testeo local)
 
       # Paso: Instalar Railway CLI
-      - name: Instalar Railway CLI
-        uses: MadeByThePinsHub/setup-railway-cli-action@v0.1.0
+      #- name: Instalar Railway CLI
+      #  uses: MadeByThePinsHub/setup-railway-cli-action@v0.1.0
 
       # Paso: Autenticarse con Railway
       - name: Autenticarse con Railway
