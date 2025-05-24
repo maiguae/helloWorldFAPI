@@ -2,7 +2,7 @@ name: CI - FastAPI Railway Deploy
 
 on:
   push:
-    branches: [main]  # Puedes cambiar la rama si es necesario
+    branches: [main]
 
 jobs:
   deploy:
@@ -15,28 +15,26 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # O la versión que uses
+          python-version: '3.11'
 
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
-      - name: Verificar que arranca la app
+      - name: Verificar que arranca la app (opcional)
         run: hypercorn main:app --bind 0.0.0.0:8080 &
-        # Esperar unos segundos para ver si arranca
-        # Aquí podrías hacer una llamada curl para test
-        # o simplemente confiar que si no falla, está bien
-        # (Este paso es opcional y útil para testeo local)
 
-      # Paso: Instalar Railway CLI
-      #- name: Instalar Railway CLI
-      #  uses: MadeByThePinsHub/setup-railway-cli-action@v0.1.0
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      # Paso: Autenticarse con Railway
+      - name: Instalar Railway CLI
+        run: npm install -g railway
+
       - name: Autenticarse con Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: railway login --token $RAILWAY_TOKEN
 
-      # Paso: Hacer deploy
       - name: Deploy a Railway
         run: railway up
